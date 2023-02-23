@@ -298,7 +298,7 @@ impl CbfBlockchain {
         thread::spawn(|| {
             cbf_client.run(client_cfg).unwrap();
         });
-        let receiver = client_handle.subscribe();
+        let receiver = client_handle.events();
 
         Ok(Self {
             receiver,
