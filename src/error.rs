@@ -263,7 +263,7 @@ impl fmt::Display for Error {
             #[cfg(feature = "esplora")]
             Self::Esplora(err) => write!(f, "Esplora client error: {}", err),
             #[cfg(feature = "compact_filters")]
-            Self::CompactFilters(err) => write!(f, "Compact filters client error: {}", err),
+            Self::Cbf(err) => write!(f, "Compact filters client error: {}", err),
             #[cfg(feature = "key-value-db")]
             Self::Sled(err) => write!(f, "Sled database error: {}", err),
             #[cfg(feature = "rpc")]
