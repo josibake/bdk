@@ -39,6 +39,7 @@ use std::path::PathBuf;
 use std::time::Duration;
 use std::{net::TcpStream, thread};
 use thiserror::Error;
+use std::ops::{Deref, DerefMut};
 
 type Reactor = nakamoto::net::poll::Reactor<TcpStream>;
 
@@ -469,9 +470,11 @@ impl GetHeight for CbfBlockchain {
 impl WalletSync for CbfBlockchain {
     fn wallet_setup<D: BatchDatabase>(
         &self,
-        database: &mut D,
+        database: &RefCell<D>,
         progress_update: Box<dyn crate::blockchain::Progress>,
     ) -> Result<(), crate::Error> {
+        let mut database = database.borrow_mut();
+        let database = database.deref_mut();
         let db_scripts = database.iter_script_pubkeys(None)?;
         self.client_handle
             .watch(db_scripts.iter().cloned())
