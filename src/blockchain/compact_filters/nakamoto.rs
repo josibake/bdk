@@ -39,7 +39,7 @@ use std::path::PathBuf;
 use std::time::Duration;
 use std::{net::TcpStream, thread};
 use thiserror::Error;
-use std::ops::{Deref, DerefMut};
+use std::ops::DerefMut;
 
 type Reactor = nakamoto::net::poll::Reactor<TcpStream>;
 
