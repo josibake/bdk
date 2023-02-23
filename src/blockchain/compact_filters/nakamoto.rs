@@ -26,10 +26,11 @@ use bitcoin::{Block, OutPoint, Script, Transaction, Txid};
 use log::{debug, info};
 use nakamoto::{
     client::{
-        chan::Receiver, handle::Handle, protocol, protocol::fees::FeeEstimate, spv::TxStatus,
+        chan::Receiver, handle::Handle, event::TxStatus,
         Client, Config, Event, Handle as ClientHandle,
     },
     net::poll::Waker,
+    p2p::fsm::fees::FeeEstimate,
 };
 use std::cell::Cell;
 use std::collections::{HashMap, HashSet};
@@ -50,7 +51,7 @@ pub enum CbfError {
 
     /// Nakamoto client error
     #[error(transparent)]
-    Nakamoto(#[from] nakamoto::client::error::Error),
+    Nakamoto(#[from] nakamoto::client::Error),
 }
 
 impl From<crate::error::Error> for CbfError {
@@ -290,9 +291,9 @@ impl CbfBlockchain {
         let client_cfg = Config {
             listen: vec![], // Don't listen for incoming connections.
             root,
-            protocol: protocol::Config {
+            protocol: Config {
                 network: network.into(),
-                ..protocol::Config::default()
+                ..Config::default()
             },
             ..Config::default()
         };
