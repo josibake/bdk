@@ -469,7 +469,7 @@ impl GetHeight for CbfBlockchain {
 impl WalletSync for CbfBlockchain {
     fn wallet_setup<D: BatchDatabase>(
         &self,
-        database: &RefCell<D>,
+        database: &mut D,
         progress_update: Box<dyn crate::blockchain::Progress>,
     ) -> Result<(), crate::Error> {
         let db_scripts = database.iter_script_pubkeys(None)?;
