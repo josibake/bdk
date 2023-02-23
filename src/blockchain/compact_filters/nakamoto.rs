@@ -291,10 +291,6 @@ impl CbfBlockchain {
         let client_cfg = Config {
             listen: vec![], // Don't listen for incoming connections.
             root,
-            protocol: Config {
-                network: network.into(),
-                ..Config::default()
-            },
             ..Config::default()
         };
 
@@ -473,7 +469,7 @@ impl GetHeight for CbfBlockchain {
 impl WalletSync for CbfBlockchain {
     fn wallet_setup<D: BatchDatabase>(
         &self,
-        database: &mut D,
+        database: &RefCell<D>,
         progress_update: Box<dyn crate::blockchain::Progress>,
     ) -> Result<(), crate::Error> {
         let db_scripts = database.iter_script_pubkeys(None)?;
