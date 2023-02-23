@@ -18,7 +18,7 @@
 #![allow(dead_code)]
 
 use crate::blockchain::{
-    Blockchain, Capability, ConfigurableBlockchain, GetBlockHash, GetHeight, GetTx, WalletSync,
+    Blockchain, Capability, ConfigurableBlockchain, GetBlockHash, GetHeight, GetTx, WalletSync, RefCell,
 };
 use crate::database::{BatchDatabase, BatchOperations, DatabaseUtils};
 use crate::{BlockTime, FeeRate, KeychainKind, LocalUtxo, TransactionDetails};
