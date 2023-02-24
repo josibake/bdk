@@ -290,6 +290,7 @@ impl CbfBlockchain {
         };
         let cbf_client = Client::<Reactor>::new()?;
         let client_cfg = Config {
+            network: network.into(),
             listen: vec![], // Don't listen for incoming connections.
             root,
             ..Config::default()
