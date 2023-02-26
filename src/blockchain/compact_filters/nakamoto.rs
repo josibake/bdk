@@ -37,9 +37,9 @@ use nakamoto::{
     },
     net::poll::Waker,
 };
+use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 use std::cell::{Cell, RefCell};
 use std::collections::{HashMap, HashSet};
-use std::net::SocketAddr;
 use std::ops::DerefMut;
 use std::path::PathBuf;
 use std::time::Duration;
@@ -295,6 +295,7 @@ impl CbfBlockchain {
         };
         let cbf_client = Client::<Reactor>::new()?;
         let client_cfg = Config {
+            connect: vec![SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 18444)],
             network: network.into(),
             listen: vec![], // Don't listen for incoming connections.
             root,
